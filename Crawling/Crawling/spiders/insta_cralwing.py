@@ -1,25 +1,26 @@
-import scrapy, re, time, datetime, urllib
+import scrapy, re, time, datetime, urllib, json
 import pandas as pd
-from Crawling.items import InstaCrawlingItem
+from Crawling.items import InstaCrawlingUserPost
 
 class InstaCralwingSpider(scrapy.Spider):
     name = 'insta_post'
     # allowed_domains = ['instagram.com']
     # start_urls = ['http://instagram.com/']
-    url_format = 'https://www.instagram.com/graphql/query/?query_hash=bfa387b2992c3a52dcbe447467b4b771&variables=%7B"id"%3A"{}"%2C"first"%3A12'
-    next_page = '%2C"after"%3A"{}"'
-    url_end = '%7D'
+    # url_format = 'https://www.instagram.com/graphql/query/?query_hash=bfa387b2992c3a52dcbe447467b4b771&variables=%7B"id"%3A"{0}"%2C"first"%3A12'
+    # next_page = '%2C"after"%3A"{0}"'
+    # url_end = '%7D'
     crawling_count = 0
 
     def __init__(self, file):
         user_id = list(pd.read_csv(file, header=None)[0])
+        
         self.start_urls = []
         for user in user_id:
-            self.start_urls.append(InstaCralwingSpider.url_format.format(user) + InstaCralwingSpider.url_end)
+            self.start_urls.append('https://www.instagram.com/graphql/query/?query_hash=bfa387b2992c3a52dcbe447467b4b771&variables=%7B"id"%3A"{0}"%2C"first"%3A12'.format(user) + '%7D')
 
     def parse(self, response):
         jason = response.json()
-        item = InstaCrawlingItem()
+        item = InstaCrawlingUserPost()
         for i in range(len(jason['data']['user']['edge_owner_to_timeline_media']['edges'])):
             # 크롤링 횟수 카운트
             self.crawling_count  += 1
@@ -27,6 +28,7 @@ class InstaCralwingSpider(scrapy.Spider):
                 time.sleep(300)
             # 유저 넘버
             item['inner_id'] = jason['data']['user']['edge_owner_to_timeline_media']['edges'][i]['node']['owner']['id']
+            insta_id = item['inner_id']
             # 게시물 게시 시간
             item['post_date'] = (datetime.datetime.fromtimestamp(int(jason['data']['user']['edge_owner_to_timeline_media']['edges'][i]['node']['taken_at_timestamp']))).strftime('%Y-%m-%d %H:%M:%S')
             # 동영상 조회수
@@ -63,8 +65,7 @@ class InstaCralwingSpider(scrapy.Spider):
                 item['location'] = None
             yield item
 
-        end_cursor = jason.loads(response.text)['data']['user']['edge_owner_to_timeline_media']['page_info']['has_next_page']
+        end_cursor = json.loads(response.text)['data']['user']['edge_owner_to_timeline_media']['page_info']['end_cursor']
         
         if end_cursor != None:
-            for user in item['inner_id']:
-                yield scrapy.Request(InstaCralwingSpider.url_format.format(user) + InstaCralwingSpider.next_page.format(end_cursor) + InstaCralwingSpider.url_end)
+            yield scrapy.Request('https://www.instagram.com/graphql/query/?query_hash=bfa387b2992c3a52dcbe447467b4b771&variables=%7B"id"%3A"{0}"%2C"first"%3A12'.format(insta_id) + '%2C"after"%3A"{0}"'.format(end_cursor) + '%7D', callback=self.parse)

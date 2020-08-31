@@ -6,7 +6,7 @@
 import scrapy
 
 
-class InstaCrawlingItem(scrapy.Item):
+class InstaCrawlingUserPost(scrapy.Item):
     inner_id = scrapy.Field()
     team_idx = 1
     post_date = scrapy.Field()
