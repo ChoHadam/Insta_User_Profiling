@@ -3,20 +3,20 @@ import pandas as pd
 from Crawling.items import InstaCrawlingUserPost
 
 class InstaCralwingSpider(scrapy.Spider):
-    name = 'insta_post'
+    name = 'insta_reply'
     # allowed_domains = ['instagram.com']
     # start_urls = ['http://instagram.com/']
-    # url_format = 'https://www.instagram.com/graphql/query/?query_hash=bfa387b2992c3a52dcbe447467b4b771&variables=%7B"id"%3A"{0}"%2C"first"%3A12'
+    url_format = 'https://www.instagram.com/graphql/query/?query_hash=bc3296d1ce80a24b1b6e40b1e72903f5&variables=%7B"shortcode"%3A"{0}"%2C"first"%3A12'
     # next_page = '%2C"after"%3A"{0}"'
-    # url_end = '%7D'
+    url_end = '%7D'
     crawling_count = 0
 
     def __init__(self, file):
-        user_id = list(pd.read_csv(file, header=None)[0])
+        post_id = list(pd.read_json(file, header=None, encoding='utf-8')['post_id'])
         
         self.start_urls = []
-        for user in user_id:
-            self.start_urls.append('https://www.instagram.com/graphql/query/?query_hash=bfa387b2992c3a52dcbe447467b4b771&variables=%7B"id"%3A"{0}"%2C"first"%3A12'.format(user) + '%7D')
+        for post in post_id:
+            self.start_urls.append(InstaCralwingSpider.url_format.format(post) + InstaCralwingSpider.url_end)
 
     def parse(self, response):
         jason = response.json()
