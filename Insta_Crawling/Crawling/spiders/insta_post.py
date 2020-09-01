@@ -24,7 +24,7 @@ class InstaCralwingSpider(scrapy.Spider):
         for i in range(len(jason['data']['user']['edge_owner_to_timeline_media']['edges'])):
             # 크롤링 횟수 카운트
             self.crawling_count  += 1
-            if self.crawling_count > 200:
+            if self.crawling_count % 200 == 0:
                 time.sleep(300)
             # 유저 넘버
             item['inner_id'] = jason['data']['user']['edge_owner_to_timeline_media']['edges'][i]['node']['owner']['id']
@@ -52,8 +52,9 @@ class InstaCralwingSpider(scrapy.Spider):
             # 게시물 URL
             item['url'] = 'https://www.instagram.com/p/' + item['post_id']
             # 게시물 텍스트 해시태그
-            if re.findall('\#[\w가-힣a-zA-Z0-9]*', str(item['content'])) != None:
-                item['hashtag'] = re.findall('\#[\w가-힣a-zA-Z0-9]*', str(item['content']))
+            if re.findall('#[\w가-힣a-zA-Z0-9]*', str(item['content'])) != None:
+                find_hashtag = re.findall('(?<=\#)[\w가-힣a-zA-Z0-9]*', str(item['content']))
+                item['hashtag'] = ', '.join(find_hashtag)
             else:
                 item['hashtag'] = None
             # 게시자명

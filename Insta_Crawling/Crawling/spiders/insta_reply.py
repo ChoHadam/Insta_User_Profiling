@@ -2,7 +2,7 @@ import scrapy, re, time, datetime, urllib, json
 import pandas as pd
 from Crawling.items import InstaCrawlingUserPost
 
-class InstaCralwingSpider(scrapy.Spider):
+class InstaReplyCralwingSpider(scrapy.Spider):
     name = 'insta_reply'
     # allowed_domains = ['instagram.com']
     # start_urls = ['http://instagram.com/']
