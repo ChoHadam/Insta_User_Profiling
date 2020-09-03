@@ -24,7 +24,7 @@ class InstaCralwingSpider(scrapy.Spider):
         for i in range(len(jason['data']['user']['edge_owner_to_timeline_media']['edges'])):
             # 크롤링 횟수 카운트
             self.crawling_count  += 1
-            if self.crawling_count % 200 == 0:
+            if self.crawling_count % 500 == 0:
                 time.sleep(300)
             # 유저 넘버
             item['inner_id'] = jason['data']['user']['edge_owner_to_timeline_media']['edges'][i]['node']['owner']['id']

@@ -1,0 +1,172 @@
+2020-09-03 16:30:37 [scrapy.utils.log] INFO: Scrapy 2.3.0 started (bot: Crawling)
+2020-09-03 16:30:37 [scrapy.utils.log] INFO: Versions: lxml 4.5.2.0, libxml2 2.9.10, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.5.2 (default, Jul 17 2020, 14:04:10) - [GCC 5.4.0 20160609], pyOpenSSL 19.1.0 (OpenSSL 1.1.1c  28 May 2019), cryptography 2.7, Platform Linux-4.4.0-1113-aws-x86_64-with-Ubuntu-16.04-xenial
+2020-09-03 16:30:37 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.epollreactor.EPollReactor
+2020-09-03 16:30:37 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'Crawling',
+ 'CONCURRENT_REQUESTS': 8,
+ 'DOWNLOAD_DELAY': 1,
+ 'LOG_FILE': 'log_2020-09-03.txt',
+ 'NEWSPIDER_MODULE': 'Crawling.spiders',
+ 'SPIDER_MODULES': ['Crawling.spiders']}
+2020-09-03 16:30:37 [scrapy.extensions.telnet] INFO: Telnet Password: 62eb4a397d38dc11
+2020-09-03 16:30:37 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+2020-09-03 16:30:37 [twisted] CRITICAL: Unhandled error in Deferred:
+2020-09-03 16:30:37 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "/home/lab12/.local/lib/python3.5/site-packages/twisted/internet/defer.py", line 1418, in _inlineCallbacks
+    result = g.send(result)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/crawler.py", line 86, in crawl
+    self.spider = self._create_spider(*args, **kwargs)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/crawler.py", line 98, in _create_spider
+    return self.spidercls.from_crawler(self, *args, **kwargs)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/spiders/__init__.py", line 49, in from_crawler
+    spider = cls(*args, **kwargs)
+  File "/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/Crawling/spiders/insta_post.py", line 15, in __init__
+    user_id = list(pd.read_csv(file, header=None)[0])
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 702, in parser_f
+    return _read(filepath_or_buffer, kwds)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 429, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 895, in __init__
+    self._make_engine(self.engine)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 1122, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 1853, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas/_libs/parsers.pyx", line 387, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas/_libs/parsers.pyx", line 705, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] File b'/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/User Crawling Data/10\xeb\x8c\x80/\xec\xb4\x881.csv' does not exist: b'/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/User Crawling Data/10\xeb\x8c\x80/\xec\xb4\x881.csv'
+2020-09-03 16:34:15 [scrapy.utils.log] INFO: Scrapy 2.3.0 started (bot: Crawling)
+2020-09-03 16:34:15 [scrapy.utils.log] INFO: Versions: lxml 4.5.2.0, libxml2 2.9.10, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.5.2 (default, Jul 17 2020, 14:04:10) - [GCC 5.4.0 20160609], pyOpenSSL 19.1.0 (OpenSSL 1.1.1c  28 May 2019), cryptography 2.7, Platform Linux-4.4.0-1113-aws-x86_64-with-Ubuntu-16.04-xenial
+2020-09-03 16:34:15 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.epollreactor.EPollReactor
+2020-09-03 16:34:15 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'Crawling',
+ 'CONCURRENT_REQUESTS': 8,
+ 'DOWNLOAD_DELAY': 1,
+ 'LOG_FILE': 'log_2020-09-03.txt',
+ 'NEWSPIDER_MODULE': 'Crawling.spiders',
+ 'SPIDER_MODULES': ['Crawling.spiders']}
+2020-09-03 16:34:15 [scrapy.extensions.telnet] INFO: Telnet Password: ab6c3978a4e228b0
+2020-09-03 16:34:15 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.feedexport.FeedExporter']
+2020-09-03 16:34:15 [twisted] CRITICAL: Unhandled error in Deferred:
+2020-09-03 16:34:15 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "/home/lab12/.local/lib/python3.5/site-packages/twisted/internet/defer.py", line 1418, in _inlineCallbacks
+    result = g.send(result)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/crawler.py", line 86, in crawl
+    self.spider = self._create_spider(*args, **kwargs)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/crawler.py", line 98, in _create_spider
+    return self.spidercls.from_crawler(self, *args, **kwargs)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/spiders/__init__.py", line 49, in from_crawler
+    spider = cls(*args, **kwargs)
+  File "/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/Crawling/spiders/insta_post.py", line 15, in __init__
+    user_id = list(pd.read_csv(file, header=None)[0])
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 702, in parser_f
+    return _read(filepath_or_buffer, kwds)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 429, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 895, in __init__
+    self._make_engine(self.engine)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 1122, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 1853, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas/_libs/parsers.pyx", line 387, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas/_libs/parsers.pyx", line 705, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] File b'/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/User Crawling Data/10\xeb\x8c\x80/\xec\xb4\x881.csv' does not exist: b'/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/User Crawling Data/10\xeb\x8c\x80/\xec\xb4\x881.csv'
+2020-09-03 16:37:32 [scrapy.utils.log] INFO: Scrapy 2.3.0 started (bot: Crawling)
+2020-09-03 16:37:32 [scrapy.utils.log] INFO: Versions: lxml 4.5.2.0, libxml2 2.9.10, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.5.2 (default, Jul 17 2020, 14:04:10) - [GCC 5.4.0 20160609], pyOpenSSL 19.1.0 (OpenSSL 1.1.1c  28 May 2019), cryptography 2.7, Platform Linux-4.4.0-1113-aws-x86_64-with-Ubuntu-16.04-xenial
+2020-09-03 16:37:32 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.epollreactor.EPollReactor
+2020-09-03 16:37:32 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'Crawling',
+ 'CONCURRENT_REQUESTS': 8,
+ 'DOWNLOAD_DELAY': 1,
+ 'LOG_FILE': 'log_2020-09-03.txt',
+ 'NEWSPIDER_MODULE': 'Crawling.spiders',
+ 'SPIDER_MODULES': ['Crawling.spiders']}
+2020-09-03 16:37:32 [scrapy.extensions.telnet] INFO: Telnet Password: 30b5bff1f2b4074d
+2020-09-03 16:37:32 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.feedexport.FeedExporter']
+2020-09-03 16:37:32 [twisted] CRITICAL: Unhandled error in Deferred:
+2020-09-03 16:37:32 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "/home/lab12/.local/lib/python3.5/site-packages/twisted/internet/defer.py", line 1418, in _inlineCallbacks
+    result = g.send(result)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/crawler.py", line 86, in crawl
+    self.spider = self._create_spider(*args, **kwargs)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/crawler.py", line 98, in _create_spider
+    return self.spidercls.from_crawler(self, *args, **kwargs)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/spiders/__init__.py", line 49, in from_crawler
+    spider = cls(*args, **kwargs)
+  File "/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/Crawling/spiders/insta_post.py", line 15, in __init__
+    user_id = list(pd.read_csv(file, header=None)[0])
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 702, in parser_f
+    return _read(filepath_or_buffer, kwds)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 429, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 895, in __init__
+    self._make_engine(self.engine)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 1122, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 1853, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas/_libs/parsers.pyx", line 387, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas/_libs/parsers.pyx", line 705, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] File b'/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/User_Crawling_Data/10\xeb\x8c\x80/\xec\xb4\x881.csv' does not exist: b'/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/User_Crawling_Data/10\xeb\x8c\x80/\xec\xb4\x881.csv'
+2020-09-03 16:41:36 [scrapy.utils.log] INFO: Scrapy 2.3.0 started (bot: Crawling)
+2020-09-03 16:41:36 [scrapy.utils.log] INFO: Versions: lxml 4.5.2.0, libxml2 2.9.10, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.5.2 (default, Jul 17 2020, 14:04:10) - [GCC 5.4.0 20160609], pyOpenSSL 19.1.0 (OpenSSL 1.1.1c  28 May 2019), cryptography 2.7, Platform Linux-4.4.0-1113-aws-x86_64-with-Ubuntu-16.04-xenial
+2020-09-03 16:41:36 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.epollreactor.EPollReactor
+2020-09-03 16:41:36 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'Crawling',
+ 'CONCURRENT_REQUESTS': 8,
+ 'DOWNLOAD_DELAY': 1,
+ 'LOG_FILE': 'log_2020-09-03.txt',
+ 'NEWSPIDER_MODULE': 'Crawling.spiders',
+ 'SPIDER_MODULES': ['Crawling.spiders']}
+2020-09-03 16:41:36 [scrapy.extensions.telnet] INFO: Telnet Password: 749b83867e1b670c
+2020-09-03 16:41:37 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.feedexport.FeedExporter',
+ 'scrapy.extensions.logstats.LogStats']
+2020-09-03 16:41:37 [twisted] CRITICAL: Unhandled error in Deferred:
+2020-09-03 16:41:37 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "/home/lab12/.local/lib/python3.5/site-packages/twisted/internet/defer.py", line 1418, in _inlineCallbacks
+    result = g.send(result)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/crawler.py", line 86, in crawl
+    self.spider = self._create_spider(*args, **kwargs)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/crawler.py", line 98, in _create_spider
+    return self.spidercls.from_crawler(self, *args, **kwargs)
+  File "/home/lab12/.local/lib/python3.5/site-packages/scrapy/spiders/__init__.py", line 49, in from_crawler
+    spider = cls(*args, **kwargs)
+  File "/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/Crawling/spiders/insta_post.py", line 15, in __init__
+    user_id = list(pd.read_csv(file, header=None)[0])
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 702, in parser_f
+    return _read(filepath_or_buffer, kwds)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 429, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 895, in __init__
+    self._make_engine(self.engine)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 1122, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "/usr/local/lib/python3.5/dist-packages/pandas/io/parsers.py", line 1853, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas/_libs/parsers.pyx", line 387, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas/_libs/parsers.pyx", line 705, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] File b'/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/User_Crawling_Data/10\xeb\x8c\x80/\xec\xb4\x881.csv' does not exist: b'/home/lab12/workspace/Insta_User_Profiling/Insta_Crawling/User_Crawling_Data/10\xeb\x8c\x80/\xec\xb4\x881.csv'
