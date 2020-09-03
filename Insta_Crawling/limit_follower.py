@@ -6,9 +6,7 @@ import time
 
 def limit_follower(folder_path, file_name, n ):    
   headers = {
-    'cookie': 'mid=XWDV6wALAAEBkhbYe6R8OfFabw0b; ig_did=061B9C21-6C77-4EA7-BC69-C3896397AB59; shbid="18511\05425263777153\0541630640501:01f7b3a48b58ffeebb622c641775cb4d5f5741b8b75359406c487289c70b526dbbe9f3ea"; shbts="1599104501\05425263777153\0541630640501:01f7f4457aa99c1dfe9428e2129150e04a84a6c0c902dbe49db491344158e73d7ff8b29e"; csrftoken=kOrEj0whzBV9jgMXRWZyjPLYml2snC5p; ds_user_id=25263777153; sessionid=25263777153%3AhvzjWpCB6UCtWH%3A2; rur="FRC\05425263777153\0541630656818:01f7782b177cceebcba5d736ba006cfd889942b5081caffc7b4c8f83f982faa22136471e"; urlgen="{\"58.145.68.241\": 9689}:1kDkNI:24Nqv6NsXOsGezYLPJ7Al6TaHhM"',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
-  }
+    }
 
   # csv 파일 불러와서 리스트에 저장
   file = open('{}/{}'.format(folder_path, file_name), 'r')
