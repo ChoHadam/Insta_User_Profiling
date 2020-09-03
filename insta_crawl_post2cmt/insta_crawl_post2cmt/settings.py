@@ -1,4 +1,4 @@
-# Scrapy settings for instagram project
+# Scrapy settings for insta_crawl_post2cmt project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'instagram'
+BOT_NAME = 'insta_crawl_post2cmt'
 
-SPIDER_MODULES = ['instagram.spiders']
-NEWSPIDER_MODULE = 'instagram.spiders'
+SPIDER_MODULES = ['insta_crawl_post2cmt.spiders']
+NEWSPIDER_MODULE = 'insta_crawl_post2cmt.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'instagram (+http://www.yourdomain.com)'
+#USER_AGENT = 'insta_crawl_post2cmt (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'instagram.middlewares.InstagramSpiderMiddleware': 543,
+#    'insta_crawl_post2cmt.middlewares.InstaCrawlPost2CmtSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'instagram.middlewares.InstagramDownloaderMiddleware': 543,
+#    'insta_crawl_post2cmt.middlewares.InstaCrawlPost2CmtDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -63,19 +63,19 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'instagram.pipelines.InstagramPipeline': 300,
+#    'insta_crawl_post2cmt.pipelines.InstaCrawlPost2CmtPipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-#AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_START_DELAY = 0.1
 # The maximum download delay to be set in case of high latencies
-#AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 600
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-#AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+AUTOTHROTTLE_TARGET_CONCURRENCY = 32.0
 # Enable showing throttling stats for every response received:
 #AUTOTHROTTLE_DEBUG = False
 

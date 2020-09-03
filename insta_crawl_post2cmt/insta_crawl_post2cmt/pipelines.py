@@ -8,6 +8,6 @@
 from itemadapter import ItemAdapter
 
 
-class InstagramPipeline:
+class InstaCrawlPost2CmtPipeline:
     def process_item(self, item, spider):
         return item

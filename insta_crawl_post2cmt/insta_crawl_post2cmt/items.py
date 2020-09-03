@@ -6,8 +6,7 @@
 import scrapy
 
 
-class InstagramItem(scrapy.Item):
+class InstaCrawlPost2CmtItem(scrapy.Item):
     # define the fields for your item here like:
-    id = scrapy.Field()
-    user_name = scrapy.Field()
+    # name = scrapy.Field()
     pass
