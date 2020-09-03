@@ -7,6 +7,7 @@ import scrapy
 
 
 class InstacrawlItem(scrapy.Item):
+    username = scrapy.Field()
     login_id = scrapy.Field()
     profile = scrapy.Field()
     follower_cnt = scrapy.Field()
