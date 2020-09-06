@@ -44,6 +44,11 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+RETRY_HTTP_CODES = [429]
+DOWNLOADER_MIDDLEWARES = {
+   'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+   'InstaCrawl.middlewares.TooManyRequestsRetryMiddleware': 543,
+}
 #SPIDER_MIDDLEWARES = {
 #    'InstaCrawl.middlewares.InstacrawlSpiderMiddleware': 543,
 #}
