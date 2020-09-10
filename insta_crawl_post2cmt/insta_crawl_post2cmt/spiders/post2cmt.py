@@ -61,16 +61,20 @@ class Post2cmtSpider(scrapy.Spider):
             # result_dic = json.loads(res.text)
             # 포스트 값이있
         yield { 
-            "post_code" : post_code,
-            "comment" : result_dic['data']['shortcode_media']['edge_media_to_caption']['edges'][0]['node']['text']
+            "shortcode" : post_code,
+            "reply" : result_dic['data']['shortcode_media']['edge_media_to_caption']['edges'][0]['node']['text'],
+            "team_idx" : 1
                 } # 자기글
          
         for i in range(len(result_dic['data']['shortcode_media']["edge_media_to_parent_comment"]['edges'])):
-            yield {"post_code" : post_code,
-                   "comment" : result_dic['data']['shortcode_media']["edge_media_to_parent_comment"]['edges'][i]['node']['text']} #댓글
+            yield {"shortcode" : post_code,
+                   "reply" : result_dic['data']['shortcode_media']["edge_media_to_parent_comment"]['edges'][i]['node']['text'],
+                   "team_idx" : 1
+                   } #댓글
             for j in range(len(result_dic['data']['shortcode_media']["edge_media_to_parent_comment"]['edges'][i]['node']['edge_threaded_comments']['edges'])):
-                yield {"post_code" : post_code,
-                       "comment" : result_dic['data']['shortcode_media']["edge_media_to_parent_comment"]['edges'][i]['node']['edge_threaded_comments']['edges'][j]['node']['text']}
+                yield {"shortcode" : post_code,
+                       "reply" : result_dic['data']['shortcode_media']["edge_media_to_parent_comment"]['edges'][i]['node']['edge_threaded_comments']['edges'][j]['node']['text'],
+                       "team_idx" : 1}
         # comment : recommetn comment
 
 # 형식조정 {포스트아이디, 사용자_이너_아이디, 댓글 시간, 해시태그부분만, 댓글 내용, 조 이름}

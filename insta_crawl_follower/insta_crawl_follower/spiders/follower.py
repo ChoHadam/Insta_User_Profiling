@@ -65,70 +65,79 @@ import time
 
 class FollowerSpider(scrapy.Spider):
     name = 'follower'
-    headers = {'cookie' : 'ig_did=46DE0419-EFCD-459F-A1C8-543AAD7A837E; mid=XzuGtgALAAFt0YG8Aq3XWbhvJ0gc; csrftoken=gGjx90efuXwVu8CMzPhSjZn2Y20rdiB8; ds_user_id=17901285934; sessionid=17901285934%3ADArEAOlFFJK0gh%3A11; shbid=8668; rur=ASH; shbts=1597999883.7194874; urlgen="{\"2001:e60:9132:b9f9:7929:b07a:6159:a194\": 4766\054 \"222.107.238.125\": 4766}:1kA2FL:56cZuVVM1gYrb9YJTOGL7dAlcyI"',
-               'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'}
+    headers = {'cookie' : 'ig_did=46DE0419-EFCD-459F-A1C8-543AAD7A837E; mid=XzuGtgALAAFt0YG8Aq3XWbhvJ0gc; ds_user_id=17901285934; sessionid=17901285934%3AUofQA5vp9nIicG%3A6; csrftoken=gGjx90efuXwVu8CMzPhSjZn2Y20rdiB8; shbid="8668\05417901285934\0541630992652:01f7252b8131a7e61dc5808de90c4907001efd25d95792a0c6b75abf1221811863147d7a"; shbts="1599456652\05417901285934\0541630992652:01f70b2fec7b9d00ff9e6eabd9700f1c5bb464c6e66b6c87dd1f2001db5b2d8fee09a4ba"; urlgen="{\"2001:e60:9222:dc8:c0e1:488:c19:4d38\": 4766\054 \"2001:e60:8734:7198:35c3:105d:76d7:7a66\": 4766\054 \"222.111.18.10\": 4766}:1kFwfS:mSZedRO0bGagCdzc7RKlh7zONGs"; rur="FTW\05417901285934\0541631180730:01f767b99037dc97511d3356a96b6d8fc3d7a1a09ec96efbd05781077e7641b6f25b3259"',
+               'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
     cnt = 0
-    # allowed_domains = ['instagram.com']
-    # start_urls = ['https://www.instagram.com/graphql/query/?query_hash=d04b0a864b4b54837c0d870b0e77e076&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A24%7D'.format(insta_id)] # 얘가 파스를 부름~ 이건 스크래피가 만들어놈 
-    
-    # # extract  
-    # def parse(self, response):
-        
-        
-    #     for quote in response.css('div.quote'):
-    #         yield {
-    #             'text': quote.css('span.text::text').get(),
-    #             'author': quote.css('small.author::text').get(),
-    #             'tags': quote.css('div.tags a.tag::text').getall(),
-    #         }
+    url_cnt = 0
     
     def start_requests(self):
         insta_ids = pd.read_csv("C:\\Users\\dhsmi\\workspace\\insta\\Insta_User_Profiling\\Insta_Crawling\\User Crawling Data\\20대\\20dae.csv", header=None)
         # start_id = [] 
         for insta_id in insta_ids[0]:
-            # yield self.follow_crawl(insta_id)
-            # self.start_id = insta_id
             first_url = "https://www.instagram.com/graphql/query/?query_hash=c76146de99bb02f6415203be841dd25a&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Atrue%2C%22first%22%3A24%7D".format(insta_id)
-            # res_follow = requests.get(first_url,headers = headers)
-            # res_follow.encoding = 'utf-8'
-            FollowerSpider.cnt += 1
-            if FollowerSpider.cnt % 1000 == 0 :
-                time.sleep(600)
             yield scrapy.Request(first_url, callback=self.follower_crawl, headers = FollowerSpider.headers, encoding = 'utf-8', meta={'insta_id':insta_id}) # request  첫번째 무조건 url -> d여기 위3줄 다넣기
-            # 이거 request랑 같은거임 
-
-
-
-
-
+            FollowerSpider.url_cnt += 1
+            if FollowerSpider.url_cnt % 100 == 0 :
+                time.sleep(300)
+                print("■■■■■■■■■■■■■■■■■■■url 카운팅■■■■■■■■■■■■■■■■■■■■■■")
 
 
     def follower_crawl(self, response): # 이거고정임 
         result_dic = json.loads(response.text)
         # cnt = 0
         insta_id = response.meta['insta_id']
-        # follower = []
-        # while True : # has_next_page가 true인동안 
-        try:
-            if result_dic['data']['user']['edge_followed_by']['page_info']['has_next_page'] == True :
-                for i in range(len(result_dic['data']['user']['edge_followed_by']['edges'])):
+        FollowerSpider.cnt += 1
+        if FollowerSpider.cnt % 1500 == 0 :
+            time.sleep(300)
+        
+        if result_dic['status'] == "ok":
+            print("■■■■■■■■■■■■■■■■■■■status ok 카운팅■■■■■■■■■■■■■■■■■■■■■■")
+            if result_dic['data']['user']['edge_followed_by']['page_info']['has_next_page'] == False :
+                for i in tqdm(range(len(result_dic['data']['user']['edge_followed_by']['edges']))):
                     FollowerSpider.cnt += 1
-                    if FollowerSpider.cnt % 1000 == 0 :
-                        time.sleep(600)
-                    yield { 
-                            "start" : str(insta_id),
-                            "end" : result_dic['data']['user']['edge_followed_by']['edges'][i]['node']['reel']['owner']['id'], 
-                            "relation_type" : "follow",
-                            # "shortcode" : ''
+                    print("■■■■■■■■■■■■■■■■■■■False 카운팅■■■■■■■■■■■■■■■■■■■■■■")
+                    if FollowerSpider.cnt % 1500 == 0 :
+                        time.sleep(300)
+                    
+                    yield { "start" : str(insta_id),
+                            "end" : result_dic['data']['user']['edge_followed_by']['edges'][i]['node']['reel']['owner']['id'],
+                            'relation_type' : 'follow',
+                            'shortcode' : ' ' 
                             #"user_name" : result_dic['data']['user']['edge_followed_by']['edges'][i]['node']['reel']['owner']['username']
                             }
+                            
+            
+            elif result_dic['data']['user']['edge_followed_by']['page_info']['has_next_page'] == True :
+                for i in tqdm(range(len(result_dic['data']['user']['edge_followed_by']['edges']))):
+                    FollowerSpider.cnt += 1
+                    print("■■■■■■■■■■■■■■■■■■■True 카운팅■■■■■■■■■■■■■■■■■■■■■■")
+                    if FollowerSpider.cnt % 1500 == 0 :
+                        time.sleep(300)
+                    yield { "start" : str(insta_id),
+                            "end" : result_dic['data']['user']['edge_followed_by']['edges'][i]['node']['reel']['owner']['id'],
+                            'relation_type' : 'follow',
+                            'shortcode' : ' ' 
+                            #"user_name" : result_dic['data']['user']['edge_follow']['edges'][i]['node']['reel']['owner']['username']
+                            }                               
                 end_cursor = result_dic['data']['user']['edge_followed_by']['page_info']['end_cursor']
-                after_url = "https://www.instagram.com/graphql/query/?query_hash=c76146de99bb02f6415203be841dd25a&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A20%2C%22after%22%3A%22{}%3D%3D%22%7D".format(insta_id, end_cursor[:-2])
-                yield scrapy.Request(after_url, callback=self.follower_crawl, headers = FollowerSpider.headers, encoding = 'utf-8', meta={'insta_id':insta_id})
-                cnt += len(result_dic['data']['user']['edge_followed_by']['edges']) # request 여기서 다시 follow로 
+                # FollowSpider.cnt += 1
+                # if FollowSpider.cnt % 1000 == 0 :
+                #     time.sleep(300)
+                
+                after_url = "https://www.instagram.com/graphql/query/?query_hash=d04b0a864b4b54837c0d870b0e77e076&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A13%2C%22after%22%3A%22{}%3D%3D%22%7D".format(insta_id, end_cursor[:-2])
+                yield scrapy.Request(after_url, callback=self.follow_crawl, headers = FollowerSpider.headers, encoding = 'utf-8', meta={'insta_id':insta_id})
+                
             else:
-                print(result_dic['data']['user']['edge_followed_by']['page_info'])
-        except : 
-                print(result_dic)
+                print("뭔가 이상합니다")    
+                # print(result_dic['data']['user']['edge_follow']['page_info'])
+        else :   
+            print("■■■■■■■■■■■■■■■■■■■Status fail 카운팅■■■■■■■■■■■■■■■■■■■■■■")         
+            time.sleep(300)
+        
 
+
+
+
+
+        
 

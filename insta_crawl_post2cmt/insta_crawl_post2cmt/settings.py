@@ -86,3 +86,6 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 32.0
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+from datetime import date
+LOG_FILE = "log_{}.txt".format(date.today())
+LOG_ENCODING = "utf-8"
