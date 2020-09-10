@@ -90,14 +90,14 @@ class InstaCrawlFollowDownloaderMiddleware:
         return response
 
     def process_exception(self, request, exception, spider):
-        # Called when a download handler or a process_request()
-        # (from other downloader middleware) raises an exception.
+            # Called when a download handler or a process_request()
+            # (from other downloader middleware) raises an exception.
 
-        # Must either:
-        # - return None: continue processing this exception
-        # - return a Response object: stops process_exception() chain
-        # - return a Request object: stops process_exception() chain
-        pass
+            # Must either:
+            # - return None: continue processing this exception
+            # - return a Response object: stops process_exception() chain
+            # - return a Request object: stops process_exception() chain
+            pass
 
-    def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        def spider_opened(self, spider):
+            spider.logger.info('Spider opened: %s' % spider.name)
