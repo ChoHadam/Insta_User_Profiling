@@ -65,38 +65,44 @@ import time
 
 class FollowerSpider(scrapy.Spider):
     name = 'follower'
-    headers = {'cookie' : 'ig_did=46DE0419-EFCD-459F-A1C8-543AAD7A837E; mid=XzuGtgALAAFt0YG8Aq3XWbhvJ0gc; ds_user_id=17901285934; sessionid=17901285934%3AUofQA5vp9nIicG%3A6; csrftoken=gGjx90efuXwVu8CMzPhSjZn2Y20rdiB8; shbid="8668\05417901285934\0541630992652:01f7252b8131a7e61dc5808de90c4907001efd25d95792a0c6b75abf1221811863147d7a"; shbts="1599456652\05417901285934\0541630992652:01f70b2fec7b9d00ff9e6eabd9700f1c5bb464c6e66b6c87dd1f2001db5b2d8fee09a4ba"; urlgen="{\"2001:e60:9222:dc8:c0e1:488:c19:4d38\": 4766\054 \"2001:e60:8734:7198:35c3:105d:76d7:7a66\": 4766\054 \"222.111.18.10\": 4766}:1kFwfS:mSZedRO0bGagCdzc7RKlh7zONGs"; rur="FTW\05417901285934\0541631180730:01f767b99037dc97511d3356a96b6d8fc3d7a1a09ec96efbd05781077e7641b6f25b3259"',
-               'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
+    headers = {'cookie' : 'ig_did=46DE0419-EFCD-459F-A1C8-543AAD7A837E; mid=XzuGtgALAAFt0YG8Aq3XWbhvJ0gc; ds_user_id=41768727815; csrftoken=bLoqEzHZVkcZzfmyC9WfRgedBTTuSpIz; rur=ASH; sessionid=41768727815%3AeDSPh8v7M9wYj7%3A26; urlgen="{\"2001:e60:9236:2312:4010:44ba:1a11:7124\": 4766\054 \"59.5.220.163\": 4766\054 \"220.116.196.77\": 4766}:1kIOwp:2rFvI9eVu14SvjiT9kkX_9bPDiw"',
+               'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'}
     cnt = 0
     url_cnt = 0
     
     def start_requests(self):
-        insta_ids = pd.read_csv("C:\\Users\\dhsmi\\workspace\\insta\\Insta_User_Profiling\\Insta_Crawling\\User Crawling Data\\20대\\20dae.csv", header=None)
+        insta_ids = pd.read_csv("C:\\Users\\dhsmi\\Downloads\\seoruen_profile_700.csv")
+        # insta_ids = pd.read_csv("C:\\Users\\dhsmi\\Downloads\\40_50_total.csv", header=None)
         # start_id = [] 
-        for insta_id in insta_ids[0]:
-            first_url = "https://www.instagram.com/graphql/query/?query_hash=c76146de99bb02f6415203be841dd25a&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Atrue%2C%22first%22%3A24%7D".format(insta_id)
+        # insta_ids = pd.read_csv("C:\\Users\\dhsmi\\Downloads\\sipdae_profile.csv") + for insta_id in insta_ids['inner_id'] :
+        # for insta_id in insta_ids[0]:
+        for insta_id in insta_ids['inner_id'] :
+            first_url = "https://www.instagram.com/graphql/query/?query_hash=c76146de99bb02f6415203be841dd25a&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Atrue%2C%22first%22%3A30%7D".format(insta_id)
             yield scrapy.Request(first_url, callback=self.follower_crawl, headers = FollowerSpider.headers, encoding = 'utf-8', meta={'insta_id':insta_id}) # request  첫번째 무조건 url -> d여기 위3줄 다넣기
             FollowerSpider.url_cnt += 1
-            if FollowerSpider.url_cnt % 100 == 0 :
+            if FollowerSpider.url_cnt % 130 == 0 :
                 time.sleep(300)
-                print("■■■■■■■■■■■■■■■■■■■url 카운팅■■■■■■■■■■■■■■■■■■■■■■")
+            print("■■■■■■■■■■■■■■■■■■■url 카운팅■■■■■■■■■■■■■■■■■■■■■■")
+            # 아래는 멈춰도 해당 def url이 계속감... 여기서 짤리나 .. 
 
 
     def follower_crawl(self, response): # 이거고정임 
+        time.sleep(0.5)
         result_dic = json.loads(response.text)
         # cnt = 0
         insta_id = response.meta['insta_id']
-        FollowerSpider.cnt += 1
-        if FollowerSpider.cnt % 1500 == 0 :
-            time.sleep(300)
+        # FollowerSpider.cnt += 1
+        # if FollowerSpider.cnt % 150 == 0 :
+        #     time.sleep(300)
+            # 이거 url만 멈추고 다른곳 돌게는 못하나 ... 아니야 
         
         if result_dic['status'] == "ok":
-            print("■■■■■■■■■■■■■■■■■■■status ok 카운팅■■■■■■■■■■■■■■■■■■■■■■")
+            print("■■■■■■■■■■■■■■■■■■■status ok■■■■■■■■■■■■■■■■■■■■■■")
             if result_dic['data']['user']['edge_followed_by']['page_info']['has_next_page'] == False :
                 for i in tqdm(range(len(result_dic['data']['user']['edge_followed_by']['edges']))):
+                    print("■■■■■■■■■■■■■■■■■■■False■■■■■■■■■■■■■■■■■■■■■■")
                     FollowerSpider.cnt += 1
-                    print("■■■■■■■■■■■■■■■■■■■False 카운팅■■■■■■■■■■■■■■■■■■■■■■")
-                    if FollowerSpider.cnt % 1500 == 0 :
+                    if FollowerSpider.cnt % 1300 == 0 :
                         time.sleep(300)
                     
                     yield { "start" : str(insta_id),
@@ -109,9 +115,9 @@ class FollowerSpider(scrapy.Spider):
             
             elif result_dic['data']['user']['edge_followed_by']['page_info']['has_next_page'] == True :
                 for i in tqdm(range(len(result_dic['data']['user']['edge_followed_by']['edges']))):
+                    print("■■■■■■■■■■■■■■■■■■■True■■■■■■■■■■■■■■■■■■■■■■")
                     FollowerSpider.cnt += 1
-                    print("■■■■■■■■■■■■■■■■■■■True 카운팅■■■■■■■■■■■■■■■■■■■■■■")
-                    if FollowerSpider.cnt % 1500 == 0 :
+                    if FollowerSpider.cnt % 1300 == 0 :
                         time.sleep(300)
                     yield { "start" : str(insta_id),
                             "end" : result_dic['data']['user']['edge_followed_by']['edges'][i]['node']['reel']['owner']['id'],
@@ -124,14 +130,14 @@ class FollowerSpider(scrapy.Spider):
                 # if FollowSpider.cnt % 1000 == 0 :
                 #     time.sleep(300)
                 
-                after_url = "https://www.instagram.com/graphql/query/?query_hash=d04b0a864b4b54837c0d870b0e77e076&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A13%2C%22after%22%3A%22{}%3D%3D%22%7D".format(insta_id, end_cursor[:-2])
-                yield scrapy.Request(after_url, callback=self.follow_crawl, headers = FollowerSpider.headers, encoding = 'utf-8', meta={'insta_id':insta_id})
+                after_url = "https://www.instagram.com/graphql/query/?query_hash=d04b0a864b4b54837c0d870b0e77e076&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A30%2C%22after%22%3A%22{}%3D%3D%22%7D".format(insta_id, end_cursor[:-2])
+                yield scrapy.Request(after_url, callback=self.follower_crawl, headers = FollowerSpider.headers, encoding = 'utf-8', meta={'insta_id':insta_id})
                 
             else:
                 print("뭔가 이상합니다")    
                 # print(result_dic['data']['user']['edge_follow']['page_info'])
         else :   
-            print("■■■■■■■■■■■■■■■■■■■Status fail 카운팅■■■■■■■■■■■■■■■■■■■■■■")         
+            print("■■■■■■■■■※※※※※※※※※※※■■■■■■■■■■Status fail 카운팅■■■■■■■■■※※※※※※※※※※※■■■■■■■■■■")         
             time.sleep(300)
         
 
